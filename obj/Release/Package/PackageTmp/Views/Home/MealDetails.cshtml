@@ -1,0 +1,135 @@
+﻿@model GrabFit2.Models.OrderTagged
+
+@{
+    ViewBag.Title = "Calorie Details";
+}
+
+<div class="row">
+    <div class="col-xl-12 col-lg-12 box-col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-11">
+                        <h5>@Model.FoodReferences.FoodName</h5>
+                    </div>
+                    <div class="col-1 text-right"><a href="@Url.Action("Index")"><i class="text-muted" data-feather="arrow-left"></i></a></div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="@Model.FoodOrdered.imageURL" width="300px" />
+                    </div>
+                    <div class="col-md-8">
+                        <strong><h5>@Model.FoodOrdered.merchantName</h5></strong><br />
+                        <h3>@Model.FoodOrdered.itemName</h3><br />
+                        @Model.FoodOrdered.itemDescription<br />
+                        @Model.FoodOrdered.itemOrdered portion <a href="@Url.Action("Edit","FoodTrack",new { id = Model.OrderID })" class="btn btn-xs btn-info">Adjust meal portion</a><br />
+                        @Math.Round(Model.FoodReferences.Calorie * Model.FoodOrdered.itemOrdered, 2) calories contained in @Model.FoodReferences.Size<br />
+                        Calorie detail: @ViewBag.FatCal % fat, @ViewBag.CarbCal % carb, @ViewBag.ProtCal % protein
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="chart1"> </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body bg-success">
+                                        <center>
+                                            <strong>Calorie</strong><br />
+                                            <strong>(Cal)</strong><br />
+                                            <h3>@Math.Round(Model.FoodReferences.Calorie*Model.FoodOrdered.itemOrdered,2)</h3>
+                                        </center>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body bg-secondary">
+                                        <center>
+                                            <strong>Carbo</strong><br />
+                                            <strong>(gram)</strong><br />
+                                            <h3>@Math.Round(Model.FoodReferences.Carbohydrate*Model.FoodOrdered.itemOrdered,2)</h3>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body bg-primary">
+                                        <center>
+                                            <strong>Fat</strong><br />
+                                            <strong>(gram)</strong><br />
+                                            <h3>@Math.Round(Model.FoodReferences.Fat*Model.FoodOrdered.itemOrdered,2)</h3>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body bg-info">
+                                        <center>
+                                            <strong>Protein</strong><br />
+                                            <strong>(gram)</strong><br />
+                                            <h3>@Math.Round(Model.FoodReferences.Protein*Model.FoodOrdered.itemOrdered,2)</h3>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/assets-poco/js/chart/apex-chart/apex-chart.js"></script>
+<!--charts start-->
+<script>
+    var options = {
+        chart: {
+            width: 370,
+            type: 'donut',
+        },
+        dataLabels: {
+            enabled: false,
+        },
+        series: [@ViewBag.FatCal, @ViewBag.CarbCal, @ViewBag.ProtCal],
+        labels: ['Fat', 'Carbohydrate', 'Protein'],
+        responsive: [{
+            breakpoint: 200,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    show: false
+                }
+            }
+        }],
+        legend: {
+            position: 'bottom'
+        },
+        fill: {
+            opacity: 1
+        },
+        colors: ['#7e37d8', '#fe80b2', '#06b5dd'],
+
+    }
+
+    var chart = new ApexCharts(
+        document.querySelector("#chart1"),
+        options
+    );
+
+    chart.render()
+</script>
+<!--charts end-->

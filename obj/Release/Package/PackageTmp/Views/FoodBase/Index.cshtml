@@ -1,0 +1,69 @@
+﻿@model IEnumerable<GrabFit2.Models.FoodReferences>
+
+@{
+    ViewBag.Title = "FoodBase";
+}
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-sm btn-info" })
+</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+
+            <div class="card-body table-responsive">
+                <table class="display" id="basic-1">
+                    <thead>
+                        <tr>
+                           
+                            <th>
+                                Food
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Calorie)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Fat)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Carbohydrate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Protein)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    (@if (item.Brand != null && item.Brand != "")
+                                    {
+                                        <img src="~/brands/@item.Brand .png" width="30px" alt="@item.Brand" /> @item.Brand
+                                    }
+                                    else
+                                    {
+                                        <img src="~/brands/unavailable.png" width="30px" alt="general menu" />
+                                    }) @Html.DisplayFor(modelItem => item.FoodName) <a href="#" class="btn btn-xs btn-info">@Html.DisplayFor(modelItem => item.Size)</a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Calorie) Cal
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Fat) gr
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Carbohydrate) gr
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Protein) gr
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

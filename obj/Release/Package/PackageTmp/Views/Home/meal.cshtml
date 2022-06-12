@@ -1,0 +1,7 @@
+﻿@model IEnumerable<GrabFit2.Models.OrderTagged>
+
+
+@foreach (var item in Model)
+{
+    <li><a href="@Url.Action("MealDetails",new { id = item.ID })" style="color:#fff!important">@item.FoodOrdered.itemName @item.FoodOrdered.merchantName <strong>(@Math.Round(item.FoodOrdered.itemOrdered * item.FoodReferences.Calorie, 2) Cal) <i class="pe-7s-angle-up-circle"></i></strong></a></li>
+}

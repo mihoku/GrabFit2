@@ -1,0 +1,20 @@
+﻿@model IEnumerable<GrabFit2.Models.ComparisonResultModel>
+@{
+    ViewBag.Title = "Include";
+}
+
+<h2>@ViewBag.searched</h2>
+<table>
+    <tr>
+        <td>Score</td>
+        <td>food</td>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.Score</td>
+            <td><a href="@Url.Action("Details","FoodBase",new { id=item.OrderID })">@item.OrderID</a></td>
+        </tr>
+    }
+</table>
+

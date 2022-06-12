@@ -1,0 +1,28 @@
+﻿@model IEnumerable<GrabFit2.Models.FoodOrdered>
+
+@{
+    ViewBag.Title = "FoodTrack - Recent GrabFood Order";
+}
+    <a href="@Url.Action("Merchants")" class="btn btn-md btn-success">Manually add meal from GrabFood Partners</a><br /><br />
+    <div class="row">
+        @foreach (var item in Model.OrderBy(y=>y.orderDate))
+        {
+        <div class="col-md-4" style="height:250px!important">
+            <div class="card" style="border: 2px solid #000!important">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="@item.imageURL" width="90px" />
+                        </div>
+                        <div class="col-md-8">
+                            @item.merchantName<br />
+                            <strong>@item.itemName</strong><br />
+                            @item.orderDate.ToString("dddd, dd MMMM yyyy")<br /><br />
+                            <a href="@Url.Action("Include",new { id=item.ID })" class="btn btn-xs btn-success">+ Include as meal</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>

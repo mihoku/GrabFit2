@@ -1,0 +1,27 @@
+﻿@model IEnumerable<GrabFit2.Models.Menu>
+
+@{
+    ViewBag.Title = "FoodTrack - "+ViewBag.resto;
+}
+    <a href="@Url.Action("Merchants")" class="btn btn-md btn-success">Return</a><br /><br />
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        <div class="col-md-4" style="height:250px!important">
+            <div class="card" style="border: 2px solid #000!important">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="@item.imageURL" width="90px" />
+                        </div>
+                        <div class="col-md-8">
+                            @item.merchantName<br />
+                            <strong>@item.itemName</strong><br />
+                            <a href="@Url.Action("IncludeMenu",new { id=item.ID })" class="btn btn-xs btn-success">+ Include as meal</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
